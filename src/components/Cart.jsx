@@ -4,6 +4,7 @@ const Cart = ({ items = [] }) => {
   return (
     <div>
       <h2>Shopping Cart</h2>
+       <p>Cart total: {items.length}</p>
       <ul>
         {items.map((item) => (
           <li key={item.id}>{item.name} is in your cart.</li>
