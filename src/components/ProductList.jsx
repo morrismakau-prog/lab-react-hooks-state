@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ProductCard from './ProductCard'
 
 export const sampleProducts = [
@@ -6,36 +6,26 @@ export const sampleProducts = [
   { id: 2, name: 'Milk', price: '$2.50', category: 'Dairy', inStock: false }
 ]
 
-const ProductList = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All')
-
-  const categories = ['All', ...new Set(sampleProducts.map((p) => p.category))]
+const ProductList = ({ selectedCategory = 'all', onAddToCart }) => {
 
   const visibleProducts = sampleProducts.filter(
     (product) =>
-      selectedCategory === 'All' || product.category === selectedCategory
+      selectedCategory === 'all' || product.category === selectedCategory
   )
 
   return (
     <div>
       <h2>Available Products</h2>
 
-      <select
-        value={selectedCategory}
-        onChange={(e) => setSelectedCategory(e.target.value)}
-      >
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
-
       {visibleProducts.length === 0 ? (
         <p>No products available.</p>
       ) : (
         visibleProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            onAddToCart={onAddToCart}
+          />
         ))
       )}
     </div>
